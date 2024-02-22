@@ -3,16 +3,17 @@ import main
 import hello
 
 def main_app():
-    # Get the URL query parameters
-    url_params = st.experimental_get_query_params()
+    # Initialize session state
+    if "page" not in st.session_state:
+        st.session_state.page = "main"
 
-    # Check if the "page" parameter is set to "hello"
-    if "page" in url_params and url_params["page"][0] == "hello":
-        # Display the content for the hello.py page
+    # Check the current page and render the appropriate content
+    if st.session_state.page == "hello":
         hello.hello()
+        st.title("Hello Page")  # Update the title
     else:
-        # Display the content for the main.py page
         main.main()
+        st.title("Main Page")   # Update the title
 
 if __name__ == "__main__":
     main_app()
